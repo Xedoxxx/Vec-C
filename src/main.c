@@ -3,18 +3,13 @@
 
 int main() {
     /* create new vec_t */
-    vec_t* vec = vec_new(sizeof(int));
+    vec_t* vec = vec_new_int();
     
-    /* Add test items */
-    int one = 272;
-    int two = -2;
-    int three = 817172;
-    vec_push(vec, &one);
-    vec_push(vec, &two);
-    vec_push(vec, &three);
+    vec_push_int(vec, 828);
+    vec_push_int(vec, 9182);
+    vec_push_int(vec, -7282);
     
-    int* getted = vec_get(vec, 2);
-    printf("Item in 2 index: %d\n", *getted);
+    printf("Item in 2 index: %d\n", vec_get_int(vec, 2));
     
     vec_free(vec);
     

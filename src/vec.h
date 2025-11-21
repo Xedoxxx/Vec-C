@@ -5,6 +5,8 @@
 #include <stddef.h>
 #include <stdbool.h>
 
+typedef char* string;
+
 /*
   Struct for keep array list
  */
@@ -14,11 +16,12 @@ typedef struct vec_t {
     size_t len;
     void* items;
 } vec_t;
+
 /* 
   Create new vec_t.
   Return NULL in case of error.
  */
-vec_t *vec_new(size_t item_size);
+vec_t* vec_new(size_t item_size);
 
 /* 
   Push item to vec_t.
@@ -30,13 +33,13 @@ bool vec_push(vec_t *vec, void *new_item);
   Get item ptr from vec_t by index.
   Return NULL in case of error.
 */
-void *vec_get(vec_t *vec, size_t index);
+void* vec_get(vec_t *vec, size_t index);
 
 /* 
   Remove item by index in vec_t. 
   Return deleted item pointer or NULL in case of error.
  */
-void *vec_rm(vec_t *vec, size_t index);
+void* vec_rm(vec_t *vec, size_t index);
 
 /* 
   Absolute remove item by index in vec_t. 
@@ -53,5 +56,32 @@ void vec_free(vec_t *vec);
   Get length of items in vec_t
  */
 size_t vec_len(vec_t *vec);
+
+
+/* macros for comfortable using */
+#define GEN_FUNCS_FOR_TYPE(TYPE) \
+    static inline bool vec_push_##TYPE(vec_t *vec, TYPE new_item) {\
+        return vec_push(vec, &new_item); \
+    } \
+    static inline TYPE vec_get_##TYPE(vec_t *vec, size_t index) {\
+        TYPE* ptr = (TYPE*) vec_get(vec, index); \
+        return ptr ? *ptr : (TYPE){0};\
+    } \
+    static inline TYPE* vec_rm_##TYPE(vec_t *vec, size_t index) {\
+        return (TYPE*) vec_rm(vec, index); \
+    }\
+    static inline vec_t* vec_new_##TYPE() {\
+        return vec_new(sizeof(TYPE));\
+    }\
+    static inline bool vec_abs_rm_##TYPE(vec_t *vec, size_t index) {\
+        return vec_abs_rm(vec, index);\
+    }
+
+GEN_FUNCS_FOR_TYPE(int);
+GEN_FUNCS_FOR_TYPE(float);
+GEN_FUNCS_FOR_TYPE(double);
+GEN_FUNCS_FOR_TYPE(char);
+GEN_FUNCS_FOR_TYPE(string);
+
 
 #endif // VEC_H

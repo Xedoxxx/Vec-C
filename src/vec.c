@@ -53,7 +53,7 @@ bool vec_push(vec_t* vec, void* new_item) {
 
 void* vec_get(vec_t* vec, size_t index) {
     if(index >= vec->len) {
-        fprintf(stderr, "vec_get: Index out of bounds: %d", index);
+        fprintf(stderr, "vec_get: Index out of bounds: %ld", index);
         return NULL;
     }
     return (char*) vec->items + index * vec->item_size;
@@ -62,7 +62,7 @@ void* vec_get(vec_t* vec, size_t index) {
 
 void* vec_rm(vec_t* vec, size_t index) {
     if(index >= vec->len) {
-        fprintf(stderr, "vec_rm: Index out of bounds: %d", index);
+        fprintf(stderr, "vec_rm: Index out of bounds: %ld", index);
         return NULL;
     }
     void* removed = (void*) malloc(vec->item_size);
@@ -84,7 +84,7 @@ void* vec_rm(vec_t* vec, size_t index) {
 
 bool vec_abs_rm(vec_t* vec, size_t index) {
     if(index >= vec->len) {
-        fprintf(stderr, "vec_rm: Index out of bounds: %d", index);
+        fprintf(stderr, "vec_rm: Index out of bounds: %ld", index);
         return false;
     }
     
