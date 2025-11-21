@@ -60,26 +60,21 @@ void* vec_get(vec_t* vec, size_t index) {
     
 }
 
-void* vec_rm(vec_t* vec, size_t index) {
+bool vec_rm(vec_t* vec, void* buffer, size_t index) {
     if(index >= vec->len) {
         fprintf(stderr, "vec_rm: Index out of bounds: %ld", index);
-        return NULL;
+        return false;
     }
-    void* removed = (void*) malloc(vec->item_size);
-    if(!removed) {
-        fprintf(stderr, "vec_rm: Error allocating memory for return item");
-        return NULL;
-    }
-    memcpy(removed, (char*) vec->items + (vec->item_size*index), vec->item_size);
+    memcpy(buffer, (char*) vec->items + (vec->item_size*index), vec->item_size);
     
     /* Moving items back after index */
-    for(int i=index+1; i<vec->len; ++i) {
+    for(size_t i=index+1; i<vec->len; ++i) {
         void* to = (char*) vec->items + (i-1)*vec->item_size;
         void* from = (char*) vec->items + i * vec->item_size;
         memmove(to, from, vec->item_size);
     }
     vec->len -= 1;
-    return removed;
+    return true;
 }
 
 bool vec_abs_rm(vec_t* vec, size_t index) {
@@ -89,7 +84,7 @@ bool vec_abs_rm(vec_t* vec, size_t index) {
     }
     
     /* Moving items back after index */
-    for(int i=index+1; i<vec->len; ++i) {
+    for(size_t i=index+1; i<vec->len; ++i) {
         void* to = (char*) vec->items + (i-1)*vec->item_size;
         void* from = (char*) vec->items + i * vec->item_size;
         memmove(to, from, vec->item_size);

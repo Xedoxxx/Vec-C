@@ -37,9 +37,9 @@ void* vec_get(vec_t *vec, size_t index);
 
 /* 
   Remove item by index in vec_t. 
-  Return deleted item pointer or NULL in case of error.
+  Return is successful.
  */
-void* vec_rm(vec_t *vec, size_t index);
+bool vec_rm(vec_t *vec, void* buffer, size_t index);
 
 /* 
   Absolute remove item by index in vec_t. 
@@ -67,8 +67,8 @@ size_t vec_len(vec_t *vec);
         TYPE* ptr = (TYPE*) vec_get(vec, index); \
         return ptr ? *ptr : (TYPE){0};\
     } \
-    static inline TYPE* vec_rm_##TYPE(vec_t *vec, size_t index) {\
-        return (TYPE*) vec_rm(vec, index); \
+    static inline bool vec_rm_##TYPE(vec_t *vec, void* buffer, size_t index) {\
+        return vec_rm(vec, buffer, index); \
     }\
     static inline vec_t* vec_new_##TYPE() {\
         return vec_new(sizeof(TYPE));\
