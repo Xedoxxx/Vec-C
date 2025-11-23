@@ -1,8 +1,17 @@
 # Vec-C
-> Project using only for learning C programming language.
 
-My Vector implementation with support diffrent data types.
+> Project using only for learning CMake and C programming language.
 
-# Using
+Vector implementation with support diffrent data types.
 
-> See [main.c](src/main.c) for example
+# Testing
+
+```bash
+mkdir build
+cd build
+
+cmake ..
+make
+
+ctest -V
+```
