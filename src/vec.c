@@ -68,11 +68,9 @@ bool vec_rm(vec_t* vec, void* buffer, size_t index) {
     memcpy(buffer, (char*) vec->items + (vec->item_size*index), vec->item_size);
     
     /* Moving items back after index */
-    for(size_t i=index+1; i<vec->len; ++i) {
-        void* to = (char*) vec->items + (i-1)*vec->item_size;
-        void* from = (char*) vec->items + i * vec->item_size;
-        memmove(to, from, vec->item_size);
-    }
+    if(index < vec->len - 1) {
+        memmove((char*)vec->items+index, (char*)vec->items+index+1, (vec->len - index-1) * vec->items_size);
+    }    
     vec->len -= 1;
     return true;
 }
@@ -84,11 +82,9 @@ bool vec_abs_rm(vec_t* vec, size_t index) {
     }
     
     /* Moving items back after index */
-    for(size_t i=index+1; i<vec->len; ++i) {
-        void* to = (char*) vec->items + (i-1)*vec->item_size;
-        void* from = (char*) vec->items + i * vec->item_size;
-        memmove(to, from, vec->item_size);
-    }
+    if(index < vec->len - 1) {
+        memmove((char*)vec->items+index, (char*)vec->items+index+1, (vec->len - index-1) * vec->items_size);
+    }    
     vec->len -= 1;
     return true;
 }
