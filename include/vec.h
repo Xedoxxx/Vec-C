@@ -12,7 +12,7 @@ typedef char* string;
  */
 typedef struct vec_t {
     size_t capacity;
-    size_t item_size;
+    size_t item; // Bytes for one item
     size_t len;
     void* items;
 } vec_t;
@@ -21,7 +21,19 @@ typedef struct vec_t {
   Create new vec_t.
   Return NULL in case of error.
  */
-vec_t* vec_new(size_t item_size);
+vec_t* vec_new(size_t item);
+
+/*
+  Remove items in range.
+  Return is s
+ */
+bool vec_rm_range(vec_t* vec, void* buffer, size_t from, size_t to);
+
+/*
+  Absolute remove items in range.
+  Return is successful.
+ */
+bool vec_abs_rm_range(vec_t* vec, size_t from, size_t to);
 
 /* 
   Push item to vec_t.
@@ -66,22 +78,14 @@ size_t vec_len(vec_t *vec);
     static inline TYPE vec_get_##TYPE(vec_t *vec, size_t index) {\
         TYPE* ptr = (TYPE*) vec_get(vec, index); \
         return ptr ? *ptr : (TYPE){0};\
-    } \
-    static inline bool vec_rm_##TYPE(vec_t *vec, void* buffer, size_t index) {\
-        return vec_rm(vec, buffer, index); \
     }\
     static inline vec_t* vec_new_##TYPE() {\
         return vec_new(sizeof(TYPE));\
-    }\
-    static inline bool vec_abs_rm_##TYPE(vec_t *vec, size_t index) {\
-        return vec_abs_rm(vec, index);\
     }
 
 GEN_FUNCS_FOR_TYPE(int);
 GEN_FUNCS_FOR_TYPE(float);
 GEN_FUNCS_FOR_TYPE(double);
-GEN_FUNCS_FOR_TYPE(char);
-GEN_FUNCS_FOR_TYPE(string);
 
 
 #endif // VEC_H

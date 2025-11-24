@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-void test_vec_int() {
+int main(void) {
     printf("\033[35mTesting vec int...\033[0m\n");
     /* create new vec_t */
     vec_t* vec = vec_new_int();
@@ -23,9 +23,5 @@ void test_vec_int() {
     /* free vec */
     vec_free(vec);
     printf("\033[34mSuccessful testing vec int...\033[0m\n");
-}
-
-int main(void) {
-    test_vec_int();
     return 0;
 }
