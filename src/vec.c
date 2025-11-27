@@ -61,13 +61,16 @@ bool vec_push(vec_t* vec, void* new_item) {
     return true;
 }
 
-void* vec_get(vec_t* vec, size_t index) {
+void* vec_gets(vec_t* vec, size_t index) {
     if(index >= vec->len) {
-        fprintf(stderr, "vec_get: Index out of bounds: %ld", index);
+        fprintf(stderr, "vec_gets: Index out of bounds: %ld", index);
         return NULL;
     }
+    return vec_gets(vec, index);
+}
+
+void* vec_get(vec_t* vec, size_t index) {
     return (char*) vec->items + index * vec->item;
-    
 }
 
 bool vec_rm(vec_t* vec, void* buffer, size_t index) {
