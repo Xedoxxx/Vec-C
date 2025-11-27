@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <assert.h>
 
+/* Macros from vec.h */
+GEN_VEC_FUNCS_FOR_TYPE(int);
+
 int main(void) {
     printf("\033[35mTesting vec int...\033[0m\n");
     /* create new vec_t */

@@ -80,24 +80,26 @@ size_t vec_len(vec_t *vec);
 int vec_indexof(vec_t* vec, void* to_find);
 
 /* macros for comfortable using types */
-#define GEN_FUNCS_FOR_TYPE(TYPE) \
+#define GEN_VEC_FUNCS_FOR_TYPE(TYPE) \
     static inline bool vec_push_##TYPE(vec_t *vec, TYPE new_item) {\
         return vec_push(vec, &new_item); \
     } \
     static inline TYPE vec_get_##TYPE(vec_t *vec, size_t index) {\
-        return (TYPE*) vec_get(vec, index);\
+        TYPE* ptr = vec_get(vec, index);\
+        return (TYPE) *ptr;\
     }\
     static inline TYPE vec_gets_##TYPE(vec_t *vec, size_t index) {\
-        return (TYPE*) vec_gets(vec, index);\
+        TYPE* ptr = vec_gets(vec, index);\
+        return (TYPE) *ptr;\
     }\
     static inline vec_t* vec_new_##TYPE() {\
         return vec_new(sizeof(TYPE));\
     }
 
 /* Example use
-GEN_FUNCS_FOR_TYPE(int);
-GEN_FUNCS_FOR_TYPE(float);
-GEN_FUNCS_FOR_TYPE(double);
+GEN_VEC_FUNCS_FOR_TYPE(int);
+GEN_VEC_FUNCS_FOR_TYPE(float);
+GEN_VEC_FUNCS_FOR_TYPE(double);
  */
 
 #endif // VEC_H
