@@ -5,8 +5,6 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-typedef char* string;
-
 /*
   Struct for keep array list
  */
@@ -87,8 +85,10 @@ int vec_indexof(vec_t* vec, void* to_find);
         return vec_push(vec, &new_item); \
     } \
     static inline TYPE vec_get_##TYPE(vec_t *vec, size_t index) {\
-        TYPE* ptr = (TYPE*) vec_get(vec, index); \
-        return ptr ? *ptr : (TYPE){0};\
+        return (TYPE*) vec_get(vec, index);\
+    }\
+    static inline TYPE vec_gets_##TYPE(vec_t *vec, size_t index) {\
+        return (TYPE*) vec_gets(vec, index);\
     }\
     static inline vec_t* vec_new_##TYPE() {\
         return vec_new(sizeof(TYPE));\
