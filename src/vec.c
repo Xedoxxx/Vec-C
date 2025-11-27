@@ -25,6 +25,16 @@ vec_t* vec_new(size_t item) {
     return vec;
 }
 
+int vec_indexof(vec_t* vec, void* to_find) {
+    for (int i=0; i<vec->len; i++) {
+        void* item = (char*)vec->items + i * vec->item;
+        if (memcmp(item, to_find)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 bool vec_push(vec_t* vec, void* new_item) {
     if(!vec) {
         fprintf(stderr, "vec_push: Pointer of vec_t cannot be NULL");

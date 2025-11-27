@@ -35,6 +35,12 @@ bool vec_rm_range(vec_t* vec, void* buffer, size_t from, size_t to);
  */
 bool vec_abs_rm_range(vec_t* vec, size_t from, size_t to);
 
+/*
+  Find index of pointer.
+  Return index of item or -1 in case of error.
+ */
+int vec_indexof(vec_t* vec, void* to_find);
+
 /* 
   Push item to vec_t.
   Return is successful.
